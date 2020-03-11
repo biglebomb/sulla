@@ -32,6 +32,7 @@ declare module WAPI {
   const onParticipantsChanged: (groupId: string, callback: Function) => any;
   const onLiveLocation: (chatId: string, callback: Function) => any;
   const sendMessage: (to: string, content: string) => string;
+  const sendMessageToID: (to: string, content: string) => string;
   const setChatState: (chatState: ChatState, chatId: string) => void;
   const reply: (to: string, content: string, quotedMsg: string | Message) => void;
   const getGeneratedUserAgent: (userAgent?: string) => string;
@@ -310,6 +311,22 @@ export class Whatsapp {
       ({ to, content }) => {
         WAPI.sendSeen(to);
         return WAPI.sendMessage(to, content);
+      },
+      { to, content }
+    );
+  }
+
+
+  /**
+   * Sends a text message to given chat
+   * @param to chat id: xxxxx@us.c
+   * @param content text message
+   */
+  public async sendTextToID(to: string, content: string) {
+    return await this.page.evaluate(
+      ({ to, content }) => {
+        WAPI.sendSeen(to);
+        return WAPI.sendMessageToID(to, content);
       },
       { to, content }
     );

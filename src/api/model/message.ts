@@ -100,6 +100,9 @@ export interface Message {
   };
   chatId: string;
   quotedMsgObj: any;
+  quotedMsg: {
+    body: string;
+  }
   mediaData: {};
 }
 
